@@ -7,6 +7,6 @@ public:
             if (height[fidx] > height[ridx]) ridx -= 1;
             else fidx += 1;
         }
-	    return m;
+	return m;
     }
 };
