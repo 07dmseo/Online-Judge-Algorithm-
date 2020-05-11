@@ -1,0 +1,108 @@
+1번 문제  (O)
+#include <stdio.h>
+#include <stdbool.h>
+#include <stdlib.h>
+#include <string.h>
+int solution(int n, int garden[][3]) {
+	// 여기에 코드를 작성해주세요
+	int answer = 0, tail = 0, head = 0;
+	int dx[] = { 1,0,-1,0 }, dy[] = { 0,1,0,-1 };
+	typedef struct { int x, y, d; } day;
+	day q[10000]; memset(q, 0, sizeof(q));
+	for (int y = 0; y < n; y++) {
+		for (int x = 0; x < n; x++) {
+			if (garden[y][x] == 1) {
+				q[tail].x = x, q[tail].y = y, q[tail].d = 0, tail++;
+			}
+		}
+	}
+	while (head < tail) {
+		day curr_day = q[head]; head++;
+		answer = curr_day.d;
+		for (int i = 0; i < 4; i++) {
+			int nx = curr_day.x + dx[i], ny = curr_day.y + dy[i];
+			if (nx < 0 || nx >= n || ny < 0 || ny >= n) continue;
+			if (garden[ny][nx] == 1) continue;
+			else {
+				garden[ny][nx] = 1;
+				q[tail].x = nx, q[tail].y = ny, q[tail].d = curr_day.d + 1, tail++;
+			}
+		}
+	}
+	return answer;
+}
+
+2번 문제  (O)
+#include <stdio.h>
+#include <stdbool.h>
+#include <stdlib.h>
+int solution(int K, char* words[], int words_len) {
+	// 여기에 코드를 작성해주세요.
+	int answer = 0;
+	for (int i = 0; i < words_len; i++) {
+		int sum = strlen(words[i]);
+		for (int j = i + 1; j < words_len; j++) {
+			if (sum + strlen(words[j]) < 10) sum += strlen(words[j]);
+			else { i = j; break; }
+		}
+		answer++;
+	}
+			
+	return answer;
+}
+
+3번 문제  (O)
+#include <stdio.h>
+#include <stdbool.h>
+#include <stdlib.h>
+int m = 100000, *card;
+void combination(int n, int r, int idx, int max, int min)
+{
+	if (!r) {
+		m = m > max - min ? max - min : m;
+		return;
+	}
+	for (int i = idx; i < n; i++) {
+		int nmax = max > card[i] ? max : card[i];
+		int nmin = min > card[i] ? card[i] : min;
+		combination(n, r - 1, i + 1, nmax, nmin);
+	}
+}
+int solution(int arr[], int arr_len, int K) {
+	card = arr;
+	combination(arr_len, K, 0, 0, 10000);
+	return m;
+}
+
+4번 문제 (X)
+- card[i] = card_b[i/2]; - > card[i + 1] = card_b[i/2];
+
+5번 문제 (O)
+- 20번째줄, MAX(coins[i][j], coins[i - 1][j - 1]) --> MAX(coins[i][j - 1] + coins[i - 1][j])
+
+6번 문제 (어렵다 이문제는) (X)
+- 12번째 줄 k++?
+
+7번 문제 (O)
+- left = left > num + 1 ? left : num + 1;
+- right = right < num - 1 ? right : num - 1;
+
+8번 문제 (O)
+- func_b(S, S_len)
+- func_a(S, S_len)
+- func_c(S, S_len)
+
+9번 문제  (O)
+- func_c(*stack1_idx)
+- func_a(stack1, &stack1_idx)
+- func_c(stack2_idx)
+- func_b(stack1, &stack1_idx, stack2, &stack2_idx)
+- func_a(stack2, &stack2_idx)
+
+10번 문제  (O)
+- a.size > b.size
+- a.size < b.size
+- a.price < b.price
+- a.price > b.price
+- pizzas[0].size
+- pizzas[0].price

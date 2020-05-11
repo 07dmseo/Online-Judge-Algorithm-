@@ -1,0 +1,85 @@
+1번 문제 (O)
+- 17번째줄 create_words의 lev -> lev + 1
+
+2번 문제 (O)
+- 18번째줄 tolower의 s[0]를 s[i]로 수정
+
+3번 문제 (O)
+- 9번째줄 return (n / multi_day) * multi_day_price + (n % multi_day) * one_day_price로 수정
+
+4번 문제 (O)
+- func_b(matrix)
+- func_a(matrix)
+- func_c(matrix)
+
+5번 문제 (O)
+- reverse_number[strlen(number) - 1 - i] = number[i]
+- (char)i +'0' + 1;
+
+6번 문제 (O)
+- calculated += power(current%10, k)
+- current/=10
+
+7번 문제 (O)
+- x1, y1
+- x2, y2
+- &leftdown, &rightup
+- (rect.rightup->y - rect.leftdown->y) - (rect.rightup->x - rect.leftdown->x)
+- (rect.rightup->y + plus_y - rect.leftdown->y) - (rect.rightup->x + plus_x - rect.leftdown->x)
+
+8번 문제 (1,2차원 배열 동적할당 방법 알아놓자!)
+bool visited[10]; int res_idx = 0;
+int orderer(void *a, void *b)
+{
+	int c1 = *(int *)a;
+	int c2 = *(int *)b;
+
+	if (c1 < c2) return -1;
+	else if (c1 > c2) return 1;
+	else return 0;
+}
+
+int power(int x, int exp)
+{
+	for (int i = 1; i < exp; i++) x *= 10;
+	return x;
+}
+
+void perm(int n, int r, int sum, int *card, int *res)
+{
+	if (!r) {
+		for (int i = 0; i < res_idx; i++)
+			if (res[i] == sum) return;
+		res[res_idx++] = sum; return;
+	}
+	for (int i = 0; i < n; i++) {
+		if (visited[i]) continue;
+		int curr_num = card[i] * power(1, r);
+		visited[i] = true; sum += curr_num;
+		perm(n, r - 1, sum, card, res);
+		visited[i] = false; sum -= curr_num;
+	}
+}
+int solution(int card[], int card_len, int n) {
+	int answer = 0, res_len = 1, *res;
+	for (int i = 1; i <= card_len; i++) res_len *= i;
+	qsort(card, card_len, sizeof(int), orderer);
+	res = (int *)malloc(sizeof(int)*res_len);
+	perm(card_len, card_len, 0, card, res);
+	for (int i = 0; i < res_idx; i++) {
+		if (res[i] == n) return i;
+	}
+	return -1;
+}
+
+
+9번 문제 (O)
+char* solution(int hour, int minute) {
+	char *answer = ""; answer = (char *)malloc(sizeof(char));
+	(float)hour *= 30, (float)minute *= 6;
+	float res = hour > minute ? hour - minute : minute - hour;
+	sprintf(answer, "%0.1f", res);
+	return answer;
+}
+
+10번 문제 (소수 판정법에 관한 문제, 자리수 뽑기 등등 연습 필요)

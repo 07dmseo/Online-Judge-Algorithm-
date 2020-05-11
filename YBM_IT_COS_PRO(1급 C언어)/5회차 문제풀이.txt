@@ -1,0 +1,116 @@
+1번 문제
+- step[i - 1] + step[i - 2] + step[i - 3]
+
+2번 문제
+- if(walls[i][1] > walls[j][1]) -> if(walls[i][1] < walls[j][1])
+
+3번 문제
+- qsort(numbers, numbers_len, sizeof(int), compare); -> qsort(numbers, (numbers_len - 1)/2, sizeof(int), compare);
+
+4번 문제
+-  for(int i = 0; i < 10; i++) -> for (int i = 9; i > -1; i--)
+
+5번 문제
+int compare(const void *a, const void *b)
+{
+	return *(int *)a - *(int *)b;
+}
+int solution(int enemies[], int enemies_len, int armies[], int armies_len) {
+	// 여기에 코드를 작성해주세요.
+	int answer = 0, enemy_idx = 0;
+	qsort(enemies, enemies_len, sizeof(int), compare);
+	qsort(armies, armies_len, sizeof(int), compare);
+	for (int i = 0; i < armies_len; i++) {
+		for (int j = enemy_idx; j < enemies_len; j++) {
+			if (armies[i] >= enemies[j]) { answer++, enemy_idx = j; }
+			else { enemy_idx += 1; break; }
+		}
+	}
+	return answer;
+}
+
+6번 문제
+#include <stdio.h>
+#include <stdbool.h>
+#include <stdlib.h>
+#include <string.h>
+int solution(int number, int target) {
+    int answer = 0;
+    int q[10001], visited[10001];
+    int head = 0, tail = 0;
+
+	memset(q, 0, sizeof(q));
+	memset(visited, 0, sizeof(visited));
+
+    q[tail] = number;
+    visited[number] = 1;
+
+    while(head <= tail) {
+		int x = q[head]; head++;
+        if(x == target) break;
+
+        if(x+1 <= 10000 && visited[x+1] == 0) {
+            visited[x+1] = visited[x]+1;
+            q[tail] = x+1, tail++;
+        }
+        if(x-1 >= 0 && visited[x-1] == 0) {
+            visited[x-1] = visited[x]+1;
+            q[tail] = x-1, tail++;
+        }
+        if(2*x <= 10000 && visited[2*x] == 0) {
+            visited[2*x] = visited[x]+1;
+            q[tail] = 2*x, tail++;
+        }
+    }
+
+    answer = visited[target]-1;
+    return answer;
+}
+
+
+7번 문제 (어렵다 이해가 잘 안간다.)
+- 
+- 
+
+8번 문제
+- func_c(n, i)
+- func_a(func_a(a, b), c)
+- func_b(gcd)
+
+9번 문제
+int solution(int number, int target) {
+    int answer = 0;
+    int q[10001], visited[10001];
+    int head = 0, tail = 0;
+
+	memset(q, 0, sizeof(q));
+	memset(visited, 0, sizeof(visited));
+
+    q[tail] = number;
+    visited[number] = 1;
+
+    while(head <= tail) {
+		int x = q[head]; head++;
+        if(x == target) break;
+
+        if(x+1 <= 10000 && visited[x+1] == 0) {
+            visited[x+1] = visited[x]+1;
+            q[tail] = x+1, tail++;
+        }
+        if(x-1 >= 0 && visited[x-1] == 0) {
+            visited[x-1] = visited[x]+1;
+            q[tail] = x-1, tail++;
+        }
+        if(2*x <= 10000 && visited[2*x] == 0) {
+            visited[2*x] = visited[x]+1;
+            q[tail] = 2*x, tail++;
+        }
+    }
+
+    answer = visited[target]-1;
+    return answer;
+}
+
+10번 문제
+- plus
+- minus

@@ -1,0 +1,80 @@
+1번 문제
+- func_b(arrA, arr_B, arrA_len)
+- func_a(arrA, arrA_len)
+- func_c(arrA_temp, arr_B, arrA_len)
+
+2번 문제
+- func_b(sub_s)
+- func_a(palindromes, plaindromes_cnt, sub_s)
+- func_c(palindromes, palindromes_cnt, k)
+
+3번 문제
+int solution(char* bishops[], int bishops_len) {
+// 여기에 코드를 작성해주세요.
+    int answer = 0; bool visited[9][9]; memset(visited, 0, sizeof(visited));
+    int dx[] = { 1,-1,-1,1 }, dy[] = { -1,-1,1,1 };
+    for (int i = 0; i < bishops_len; i++) {
+        int bx = (int)bishops[i][0] - 64, by = atoi(&bishops[i]  [1]);
+        int nx, ny, cx = bx, cy = by;
+        for (int j = 0; j < 4; j++) {
+            while (true) {
+                nx = cx + dx[j], ny = cy + dy[j];
+	    if (nx < 1 || nx > 8 || ny < 1 || ny > 8) break;
+                visited[ny][nx] = true;
+	    cx = nx, cy = ny;		
+            }
+        cx = bx, cy = by;
+        }
+    }
+    for (int y = 1; y < 9; y++)
+        for (int x = 1; x < 9; x++)
+	if (!visited[y][x]) answer++;
+    return answer;
+}
+
+4번 문제
+int solution(char* s1, char* s2) {
+	// 여기에 코드를 작성해주세요.
+	bool f1 = false, f2 = false;
+	int r1 = 0, r2 = 0, len = strlen(s1) > strlen(s2) ? strlen(s2) : strlen(s1);
+	for (int i = 0; i < len; i++) {
+		if (!f1 && s1[strlen(s1) - 1 - i] == s2[i]) r1++;
+		else f1 = true;
+		if (!f2 && s2[strlen(s2) - 1 - i] == s1[i]) r2++;
+		else f2 = true;
+		if (f1 && f2) break;
+	}
+	return r1 < r2 ? r1 : r2;
+}
+
+5번 문제
+char* solution(char* phrases, int second) {
+    // 여기에 코드를 작성해주세요.
+	char *answer = "", *str, *temp; int length = strlen(phrases);
+	answer = (char *)malloc(sizeof(char)*length + 1);
+	str = (char *)malloc(sizeof(char)*length * 2 + 1);
+	temp = (char *)malloc(sizeof(char)*length * 2 + 1);
+	memset(str, '-', length); memcpy(str + length, phrases, length);
+	memcpy(temp, str, strlen(str));
+	for (int i = 0; i < length * 2; i++)
+		str[(i + second) % length] = temp[i];
+	memcpy(answer, str, length);
+    return answer;
+}
+
+6번 문제 (틀림)
+- is_prime
+- i + j + k == n
+
+7번 문제
+- 12번째 줄 % -> / 로 수정
+
+8번 문제
+- 10번째 break -> continue로 수정
+
+9번 문제(이해가 잘 안감)
+- 13번째 i = 0 -> i = k
+
+10번 문제
+- struct *NODE
+- NULL/new_node->data/target->next
